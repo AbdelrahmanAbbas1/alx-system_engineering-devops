@@ -1,2 +1,2 @@
 #!/bin/bash
-ls -laR | find -mindepth 1 -empty | cut -d/ -f2,3 | tr "/" "\n"
+find . -empty | rev | cut -d/ -f1 | rev
