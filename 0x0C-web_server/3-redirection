@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
-# This script configures Nginx server
-
-sudo apt-get -y update
-sudo apt-get -y install nginx
-sudo ufw allow "Nginx HTTP"
-chmod -R 755 /var/www
-
-echo "Hello World!" > /var/www/html/index.nginx-debian.html
-SERVER_CONFIG="server {
+# Installs, configures, and starts the server
+apt-get update
+apt-get -y install nginx
+sudo ufw allow 'Nginx HTTP'
+mkdir -p /var/www/html/
+sudo chmod -R 755 /var/www
+echo 'Hello World!' > /var/www/html/index.html
+SERVER_CONFIG=\
+"server {
 	listen 80 default_server;
 	listen [::]:80 default_server;
 	root /var/www/html;
@@ -16,9 +16,15 @@ SERVER_CONFIG="server {
 	location / {
 		try_files \$uri \$uri/ =404;
 	}
-	location /redirect_me {
+	if (\$request_filename ~ redirect_me){
 		rewrite ^ https://sketchfab.com/bluepeno/models permanent;
 	}
 }"
-echo "$SERVER_CONFIG" > /etc/nginx/sites-enabled/default
-sudo service nginx restart
+
+bash -c "echo -e '$SERVER_CONFIG' > /etc/nginx/sites-enabled/default"
+
+if [ "$(pgrep -c nginx)" -le 0 ]; then
+	service nginx start
+else
+	service nginx restart
+fi
