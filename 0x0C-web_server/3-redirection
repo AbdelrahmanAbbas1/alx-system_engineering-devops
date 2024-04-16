@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# This script configures Nginx server
+
+sudo apt-get -y update
+sudo apt-get -y install nginx
+sudo ufw allow "Nginx HTTP"
+sudo chown -R $USER:$USER /var/www/html
+sudo echo "Hello World!" > /var/www/html/index.nginx-debian.html
+SERVER_CONFIG="server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+	root /var/www/html;
+	index index.html index.htm index.nginx-debian.html;
+	server_name _;
+	location / {
+		try_files \$uri \$uri/ =404;
+	}
+	location /redirect_me {
+		rewrite ^ https://sketchfab.com/bluepeno/models permanent;
+	}
+}"
+sudo service nginx restart
