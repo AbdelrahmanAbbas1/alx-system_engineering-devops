@@ -4,7 +4,9 @@
 sudo apt-get -y update
 sudo apt-get -y install nginx
 sudo ufw allow "Nginx HTTP"
-sudo echo "Hello World!" > /var/www/html/index.nginx-debian.html
+chmod -R 755 /var/www
+
+echo "Hello World!" > /var/www/html/index.nginx-debian.html
 SERVER_CONFIG="server {
 	listen 80 default_server;
 	listen [::]:80 default_server;
@@ -18,4 +20,5 @@ SERVER_CONFIG="server {
 		rewrite ^ https://sketchfab.com/bluepeno/models permanent;
 	}
 }"
+echo "$SERVER_CONFIG" > /etc/nginx/sites-enabled/default
 sudo service nginx restart
