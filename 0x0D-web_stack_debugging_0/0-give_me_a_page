@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
+#Configuring the servername with the localhost
+echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
 # Start apache service
 service apache2 start
-
-# Keep the container running
-tail -f /dev/null
