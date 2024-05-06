@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
-#Installing and configuring nginx on port 80
-
-sudo apt-get -y update
 sudo apt-get -y install nginx
-sudo service nginx start
 rm /etc/nginx/sites-enabled/default
 ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 service nginx restart
