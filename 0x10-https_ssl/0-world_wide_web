@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# Function
+
+subdomains=(www web-01 web-02 lb-01)
+domain="$1"
+
+func1 () {
+    if [ -z "$2" ]; then
+        for subdomain in "${subdomains[@]}"; do
+            full_url="${subdomain}.${domain}"
+            default=$(dig $full_url | grep -A1 'ANSWER SECTION')
+# subdomain=$(echo $default | awk '{match($4, /^[^.]+/); print substr($4, RSTART, RLENGTH)}')
+            record=$(echo $default | awk '{print $7}')
+            ip=$(echo $default | awk '{print $NF}')
+            echo "The subdomain $subdomain is a $record record and points to $ip"
+        done
+        return 0
+    fi
+    full_url="${2}.${1}"
+    default=$(dig $full_url | grep -A1 'ANSWER SECTION')
+    record=$(echo $default | awk '{print $7}')
+    ip=$(echo $default | awk '{print $NF}')
+    echo "The subdomain $2 is a $record record and points to $ip"
+    return 0
+}
+func1 $1 $2
