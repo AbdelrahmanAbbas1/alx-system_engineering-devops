@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Function
 
-subdomains=(www web-01 web-02 lb-01)
+subdomains=(www lb-01 web-01 web-02)
 domain="$1"
 
 func1 () {
