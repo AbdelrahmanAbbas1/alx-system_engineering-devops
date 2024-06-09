@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# A script that backs up the MYSQL databases
+
+current_date=$(date +%Y-%m-%d)
+
+mysqldump -u root -p"$1" --all-databases > backup.sql
+tar -czvf "$current_date.tar.gz" backup.sql
