@@ -9,9 +9,7 @@ def number_of_subscribers(subreddit):
     total subscribers) for a given subreddit.
     """
     url = "https://www.reddit.com/r/{}/about.json".format(subreddit)
-    headers = {
-        'User-Agent': 'linux:0x16.api.advanced:v1.0 (by ubuntu)'
-        }
+    headers = {"User-Agent": "Mozilla/5.0"}
     response = requests.get(url, headers=headers, allow_redirects=False)
     if response.status_code != 200:
         return 0
