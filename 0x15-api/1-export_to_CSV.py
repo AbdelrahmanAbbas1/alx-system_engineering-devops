@@ -10,7 +10,7 @@ if __name__ == "__main__":
     user_url = 'https://jsonplaceholder.typicode.com/users/{}'.format(
                 employee_id)
     r = requests.get(user_url)
-    employee_name = r.json().get('name')
+    employee_name = r.json().get('username')
     todo_url = 'https://jsonplaceholder.typicode.com/todos?userId={}'.format(
                 employee_id)
     r = requests.get(todo_url)
